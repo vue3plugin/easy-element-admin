@@ -1,0 +1,1 @@
+export const baseColor = ["#5b90f3", "#d6efe3", "#60708e", "#efbf46", "#d96d58", "#8d63b3"]

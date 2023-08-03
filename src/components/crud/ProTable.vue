@@ -1,0 +1,77 @@
+<template>
+    <el-card>
+
+        <template #header>
+            <div class=" flex justify-between">
+                <div></div>
+                <div class=" inline-flex gap-2">
+                    <TableTips v-model:size="size" v-model:columnChecked="columnChecked" :columns="tablecolumns" />
+                </div>
+            </div>
+        </template>
+        <el-table :data="data" stripe style="width: 100%" v-bind="{ size }">
+            <template v-for="column in _tablecolumns" :key="column.key">
+                <el-table-column :label="column.label" :prop="column.key" v-if="!column.hidden"
+                    v-bind="{ ...(column.props || {}) }">
+                    <template #default="{ row, $index }">
+                        <slot :name="`table-${column.key}`" :record="row" :text="row[column.key]" :index="$index">
+                            {{ row[column.key] }}
+                        </slot>
+                    </template>
+
+                </el-table-column>
+            </template>
+
+            <el-table-column #default="{ row, $index }" :width="actionWidth">
+                <div ref="tableAction" class="flex justify-between">
+                    <slot name="action" :record="row" :index="$index"></slot>
+                </div>
+            </el-table-column>
+        </el-table>
+    </el-card>
+</template>
+  
+<script lang="ts" setup>
+import type { TableColumn } from './type';
+import { ref, unref, computed } from 'vue';
+import TableTips from "./components/TableTips.vue"
+
+const tableAction = ref<HTMLElement>()
+
+const actionWidth = computed(() => {
+    if(!unref(tableAction)) return 0
+    const length = unref(tableAction)?.children?.length || 0
+    let width = 0
+    for (const table of unref(tableAction)?.children || []) {
+        width += (table as HTMLElement).offsetWidth
+    }
+    return width + ((length - 1) * 10)
+})
+
+
+const tablecolumns = ref<TableColumn[]>([])
+const data = ref<any[]>([])
+const size = ref()
+const columnChecked = ref<string[]>([]) // 选中的列
+
+const _tablecolumns = computed(() => {
+    if (unref(columnChecked).length === 0) return unref(tablecolumns)
+
+    const _result: TableColumn[] = []
+
+    unref(tablecolumns).forEach(item => {
+        if (unref(columnChecked).includes(item.key)) {
+            _result.push(item)
+        }
+    })
+
+    return _result
+})
+
+defineExpose({
+    tablecolumns,
+    data,
+    size,
+    columnChecked,
+})
+</script>

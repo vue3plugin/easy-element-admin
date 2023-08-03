@@ -1,0 +1,31 @@
+//主色
+$th-primary: #00aa94;
+$th-primary-2: rgb(
+  0,
+  170,
+  148,
+  0.2
+); //20%的透明度，用于标题突出，表格头部突出状态。
+$th-primary-1: rgb(0, 170, 148, 0.1); //10%的透明度，用于鼠标滑动点击效果。
+//辅色
+$th-secondary-orange: #e6a23c; //小面积使用，OMS系统辅色，主要用于警示文字、图标、边框
+$th-secondary-pink: #f56c6b; //小面积使用，OMS系统辅色，主要用于错误文字、图标、边框
+$th-secondary-blue: #409eff; //小面积使用，OMS系统辅色，主要用于特殊文字、图标、按钮、边框
+$th-secondary-green: #00a92e; //小面积使用，OMS系统辅色，主要用于特殊文字、图标、按钮、边框
+$th-secondary-red: #e80000; //小面积使用，OMS系统辅色，主要用于特殊警告文字、图标、按钮、边框
+//背景
+$th-bkg-primary: #ffffff; //大面积使用，主要的背景色、按钮文字颜色
+$th-bkg-space: #f9f9f9; //用于表格行与行之间的区分色
+$th-bkg-hover: #e6f7f9; //用于鼠标悬浮在表格某行的颜色
+$th-bkg-line: #e3e7ed; //用于区分层级的背景色、表格边框
+//文字
+$th-word-title: #333333; //用于标题文字
+$th-word-search: #666666; //用于搜索框，表格等正文文字
+$th-word-default: #999999; //用于默认未选择按钮文字
+$th-word-disable: #bbbbbb; //用于提示性文字、不可操作的文字
+// 公共部分
+$th-page-bkg: #f4f4f4; //页面背景色
+$th-header-height: 70px; //header高度
+$th-header-bkg: 70px; //header背景色
+$th-aside-width: 250px; //aside宽度
+$th-aside-bkg: #ffffff; //aside背景色
