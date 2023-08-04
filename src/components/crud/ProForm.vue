@@ -1,9 +1,17 @@
 <template>
-    <BaseForm ref="ruleFormRef" v-bind="$attrs" :columns="columns" :expend="expend" :span="span"
-        :btn-position="btnPosition" :is-rule="isRule">
+    <BaseForm ref="ruleFormRef" v-bind="$attrs" :columns="columns" :expend="expend" :span="span" :btn-position="btnPosition"
+        :is-rule="isRule">
         <el-space>
-            <el-button @click="reset()">重置</el-button>
-            <el-button type="primary" @click="submitForm(ruleFormRef.form)">{{ okText }}</el-button>
+            <div @click="reset()" v-if="!hiddenReset">
+                <slot name="reset">
+                    <el-button>重置</el-button>
+                </slot>
+            </div>
+            <div @click="submitForm(ruleFormRef.form)">
+                <slot name="ok">
+                    <el-button type="primary">{{ okText }}</el-button>
+                </slot>
+            </div>
             <div class="flex items-center cursor-pointer" @click="expend = !expend"
                 v-if="displayExpend && (24 / span) < columns.length">
                 <template v-if="expend">
@@ -38,6 +46,7 @@ const props = withDefaults(defineProps<IOperationBtn>(), {
     displayExpend: true,
     btnPosition: "right",
     isRule: true,
+    hiddenReset: false,
 })
 
 

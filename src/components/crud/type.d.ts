@@ -42,6 +42,7 @@ export interface IBaseForm {
 export interface IOperationBtn extends Omit<IBaseForm, "size"> {
     okText?: string;
     displayExpend?: boolean;
+    hiddenReset?: boolean; // 隐藏重置按钮
 }
 
 
