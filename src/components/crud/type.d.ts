@@ -36,6 +36,7 @@ export interface IBaseForm {
     span: number,
     btnPosition?: "right" | "left" | "center" | "float-end" | "col",  // col 是栅格模式，位于栅格最后
     expend?: boolean, // 是否折叠除第一行的所有行最后一行
+    isRule?: boolean; //是否开启表单校验
 }
 
 export interface IOperationBtn extends Omit<IBaseForm, "size"> {

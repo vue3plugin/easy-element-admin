@@ -3,7 +3,7 @@
         <el-row :gutter="10">
             <template v-for="(c, idx) in columns">
                 <el-col :span="c.span || span" v-if="expend || (idx + 1) <= (24 / span)">
-                    <el-form-item :label="c.label" :rules="c.rules || []" :prop="[idx, 'value']">
+                    <el-form-item :label="c.label" :rules="isRule ? c.rules || [] : []" :prop="[idx, 'value']">
                         <component :is="c.is" v-model="c.value" :style="{ width: '100%' }" v-bind="c.props ? c.props : {}">
                             <slot></slot>
                         </component>
@@ -41,6 +41,7 @@ const props = withDefaults(defineProps<IBaseForm>(), {
     span: 4,
     btnPosition: "right",
     expend: false,
+    isRule: true,
 })
 
 const emit = defineEmits()

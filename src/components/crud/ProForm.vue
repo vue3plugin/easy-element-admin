@@ -1,6 +1,6 @@
 <template>
     <BaseForm ref="ruleFormRef" v-bind="$attrs" :columns="columns" :expend="expend" :span="span"
-        :btn-position="btnPosition">
+        :btn-position="btnPosition" :is-rule="isRule">
         <el-space>
             <el-button @click="reset()">重置</el-button>
             <el-button type="primary" @click="submitForm(ruleFormRef.form)">{{ okText }}</el-button>
@@ -36,7 +36,8 @@ const props = withDefaults(defineProps<IOperationBtn>(), {
     span: 4,
     okText: "查询",
     displayExpend: true,
-    btnPosition: "right"
+    btnPosition: "right",
+    isRule: true,
 })
 
 

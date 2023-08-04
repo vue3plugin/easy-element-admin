@@ -1,6 +1,6 @@
 <template>
     <el-card>
-        <pro-form v-model:columns="formColumn.search" :span="6" @ok="submit" :btn-position="'float-end'" />
+        <pro-form v-model:columns="formColumn.search" :span="6" @ok="submit" :btn-position="'float-end'" :is-rule="false"/>
     </el-card>
 
     <ProTable selection ref="tableRef" class=" mt-4">
