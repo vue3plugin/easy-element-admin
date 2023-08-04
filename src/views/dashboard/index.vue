@@ -3,7 +3,7 @@
         <pro-form v-model:columns="formColumn.search" :span="6" @ok="submit" :btn-position="'float-end'" />
     </el-card>
 
-    <ProTable ref="tableRef" class=" mt-4">
+    <ProTable selection ref="tableRef" class=" mt-4">
         <template #table-input2="{ record }">
             {{ record }}
         </template>
@@ -79,12 +79,39 @@ const columns = ref<TableColumn[]>([
     },
 ])
 
-const { formColumn, setTableData, setTableRow } = useProTable(tableRef, columns)
+const { formColumn, setTableData, selectedData } = useProTable(tableRef, columns)
 
 setTableData([
     {
         input: 1223,
-    }
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
+    {
+        input: 1223,
+    },
 ])
 
 function submit(row) {

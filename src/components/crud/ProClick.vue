@@ -16,9 +16,7 @@
                 <template #footer>
                     <slot name="dialog-footer"></slot>
                 </template>
-                <template>
                     <slot name="dialog-default"></slot>
-                </template>
             </el-dialog>
             <slot></slot>
         </template>

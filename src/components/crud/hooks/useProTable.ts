@@ -1,6 +1,7 @@
-import { watch, nextTick, type Ref, reactive, onMounted } from "vue";
+import { watch, nextTick, type Ref, reactive, onMounted, computed, ref } from "vue";
 import type { SearchColumn, TableColumn, TableProps } from "../type";
 import { isDefined } from "@vueuse/core";
+import { useWatchRef } from "@/hooks/vue/useWatchRef";
 
 export function useProTable(_ref: Ref<any>, columns: Ref<TableColumn[]>, props?: TableProps) {
 
@@ -33,12 +34,12 @@ export function useProTable(_ref: Ref<any>, columns: Ref<TableColumn[]>, props?:
             if (column.add) add.push({ ..._column, value: "" })
 
             if (column.edit) {
-                edit.push({..._column, resetVal: "" })
+                edit.push({ ..._column, resetVal: "" })
             }
 
-            if (column.detail) detail.push({..._column})
+            if (column.detail) detail.push({ ..._column })
 
-            if (column.search) search.push({..._column})
+            if (column.search) search.push({ ..._column })
         }
         formColumn.add = add
         formColumn.edit = edit
@@ -57,7 +58,7 @@ export function useProTable(_ref: Ref<any>, columns: Ref<TableColumn[]>, props?:
 
         _ref.value.tablecolumns = columns
 
-        _ref.value.columnChecked = _props.columnChecked || columns.map(it=>it.key)
+        _ref.value.columnChecked = _props.columnChecked || columns.map(it => it.key)
     })
 
     /**
@@ -85,12 +86,18 @@ export function useProTable(_ref: Ref<any>, columns: Ref<TableColumn[]>, props?:
     /**
      * 表格其它属性
     */
-    onMounted(()=>{
+    onMounted(() => {
         _ref.value.size = _props.size || "default"
     })
 
+    /***
+     * 监听选择的数据
+    */
+    const selectedData = useWatchRef(_ref, 'selectedData')
+
     return {
         formColumn,
+        selectedData,
         setTableData: setData,
         setTableRow: setRow,
     }

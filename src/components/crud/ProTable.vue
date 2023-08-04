@@ -9,7 +9,8 @@
                 </div>
             </div>
         </template>
-        <el-table :data="data" stripe style="width: 100%" v-bind="{ size }">
+        <el-table :data="data" stripe style="width: 100%" @selection-change="handleSelectionChange" v-bind="{ size }">
+            <el-table-column v-if="selection"  type="selection" width="55" />
             <template v-for="column in _tablecolumns" :key="column.key">
                 <el-table-column :label="column.label" :prop="column.key" v-if="!column.hidden"
                     v-bind="{ ...(column.props || {}) }">
@@ -36,10 +37,14 @@ import type { TableColumn } from './type';
 import { ref, unref, computed } from 'vue';
 import TableTips from "./components/TableTips.vue"
 
+defineProps<{
+    selection?: boolean
+}>()
+
 const tableAction = ref<HTMLElement>()
 
 const actionWidth = computed(() => {
-    if(!unref(tableAction)) return 0
+    if (!unref(tableAction)) return 0
     const length = unref(tableAction)?.children?.length || 0
     let width = 0
     for (const table of unref(tableAction)?.children || []) {
@@ -50,9 +55,12 @@ const actionWidth = computed(() => {
 
 
 const tablecolumns = ref<TableColumn[]>([])
-const data = ref<any[]>([])
+const data = ref<any[]>([]) // 外部传入的数据
+const selectedData = ref<any[]>([]) // 选中的data
+
+// ------------------属性系列------------------------------
 const size = ref()
-const columnChecked = ref<string[]>([]) // 选中的列
+const columnChecked = ref<string[]>([]) // 展示的列
 
 const _tablecolumns = computed(() => {
     if (unref(columnChecked).length === 0) return unref(tablecolumns)
@@ -68,9 +76,14 @@ const _tablecolumns = computed(() => {
     return _result
 })
 
+const handleSelectionChange = (val: []) => {
+    selectedData.value = val
+}
+
 defineExpose({
     tablecolumns,
     data,
+    selectedData,
     size,
     columnChecked,
 })
