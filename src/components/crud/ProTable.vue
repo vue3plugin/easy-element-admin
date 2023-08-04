@@ -1,10 +1,12 @@
 <template>
     <el-card>
-
         <template #header>
             <div class=" flex justify-between">
-                <div></div>
-                <div class=" inline-flex gap-2">
+                <div>
+                    <slot name="title">{{ title }}</slot>
+                </div>
+                <div class=" inline-flex gap-2 items-center">
+                    <slot name="extra"></slot>
                     <TableTips v-model:size="size" v-model:columnChecked="columnChecked" :columns="tablecolumns" />
                 </div>
             </div>
@@ -38,7 +40,8 @@ import { ref, unref, computed } from 'vue';
 import TableTips from "./components/TableTips.vue"
 
 defineProps<{
-    selection?: boolean
+    selection?: boolean;
+    title?: string;
 }>()
 
 const tableAction = ref<HTMLElement>()

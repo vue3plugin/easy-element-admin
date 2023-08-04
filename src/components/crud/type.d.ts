@@ -10,6 +10,7 @@ export interface SearchColumn {
     is: FormItemType, // element组件名称
     optionLabel?: string; // 下拉框使用
     optionValue?: string; // 下拉框使用
+    data: any[]; // 数据源，下拉框使用
     props?: Recordable;
 }
 

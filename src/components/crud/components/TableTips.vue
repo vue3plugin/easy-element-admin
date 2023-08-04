@@ -1,10 +1,25 @@
 <template>
+    <el-tooltip content="上传" placement="top-start">
+        <div @click="$emit('upload')">
+            <el-icon>
+                <Upload class=" cursor-pointer" />
+            </el-icon>
+        </div>
+    </el-tooltip>
+    <el-tooltip content="下载" placement="top-start">
+        <div @click="$emit('download')">
+            <el-icon>
+                <Download class=" cursor-pointer" />
+            </el-icon>
+        </div>
+    </el-tooltip>
+
     <el-popover placement="bottom" trigger="click" popper-class=" !p-0">
         <template #reference>
             <div>
                 <el-tooltip content="密度" placement="top-start">
                     <el-icon>
-                        <Switch class="cursor-pointer" />
+                        <Switch class=" cursor-pointer" />
                     </el-icon>
                 </el-tooltip>
             </div>
@@ -43,8 +58,8 @@
     </el-popover>
 </template>
 <script lang="ts" setup>
-import { Switch, Setting } from "@element-plus/icons-vue"
-import { useVModel } from '@vueuse/core';
+import { Switch, Setting, Upload, Download } from "@element-plus/icons-vue"
+import { useVModels } from '@vueuse/core';
 import type { TableColumn } from '../type';
 
 const props = withDefaults(defineProps<{
@@ -56,8 +71,10 @@ const props = withDefaults(defineProps<{
     columnChecked: () => []
 })
 
-const emit = defineEmits()
+const emit = defineEmits<{
+    (e: 'download'): void;
+    (e: 'upload'): void;
+}>()
 
-const size = useVModel(props, 'size', emit)
-const columnChecked = useVModel(props, 'columnChecked', emit)
+const { size, columnChecked } = useVModels(props, emit)
 </script>

@@ -1,9 +1,17 @@
 <template>
     <el-card>
-        <pro-form v-model:columns="formColumn.search" :span="6" @ok="submit" :btn-position="'float-end'" :is-rule="false"/>
+        <pro-form v-model:columns="formColumn.search" :span="6" @ok="submit" :btn-position="'float-end'" :is-rule="false" />
     </el-card>
 
-    <ProTable selection ref="tableRef" class=" mt-4">
+    <ProTable selection ref="tableRef" class=" mt-4" title="人员表">
+        <template #extra>
+            <pro-click :type="'dialog'" :x-props="{ 'title': '' }">
+                <template #dialog-default>
+                    <pro-form v-model:columns="formColumn.add" :span="6" @ok="submit" :btn-position="'center'" />
+                </template>
+                <el-button>新增</el-button>
+            </pro-click>
+        </template>
         <template #table-input2="{ record }">
             {{ record }}
         </template>
@@ -47,6 +55,7 @@ const columns = ref<TableColumn[]>([
         key: "input",
         search: true,
         edit: true,
+        add: true,
         form: {
             value: "",
             is: "ElInput",
@@ -54,12 +63,29 @@ const columns = ref<TableColumn[]>([
             rules: [
                 { required: true, message: "请输入" }
             ],
-        }
+            props: {
+                'onUpdate:modelValue'(val) {
+                    console.log(val)
+                }
+            }
+        },
     },
     {
         label: "输入框1",
         key: "input2",
         edit: true,
+        add: true,
+        form: {
+            value: "",
+            is: "ElSelect",
+            resetVal: "222",
+            optionLabel: "key",
+            optionValue: "value",
+            data: [{ key: '张三', value: "123" }],
+            rules: [
+                { required: true, message: "请输入" }
+            ],
+        }
     },
     {
         label: "输入框2",

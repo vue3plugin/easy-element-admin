@@ -4,9 +4,20 @@
             <template v-for="(c, idx) in columns">
                 <el-col :span="c.span || span" v-if="expend || (idx + 1) <= (24 / span)">
                     <el-form-item :label="c.label" :rules="isRule ? c.rules || [] : []" :prop="[idx, 'value']">
-                        <component :is="c.is" v-model="c.value" :style="{ width: '100%' }" v-bind="c.props ? c.props : {}">
-                            <slot></slot>
-                        </component>
+                        <!-- 下拉框逻辑 -->
+                        <template v-if="c.is == 'ElSelect'">
+                            <component :is="c.is" v-model="c.value" :style="{ width: '100%' }"
+                                v-bind="c.props ? c.props : {}">
+                                <el-option v-for="item in c.data || []" :key="item[c.optionValue]"
+                                    :label="item[c.optionLabel]" :value="item[c.optionValue]">
+                                </el-option>
+                            </component>
+                        </template>
+                        <template v-else>
+                            <component :is="c.is" v-model="c.value" :style="{ width: '100%' }"
+                                v-bind="c.props ? c.props : {}">
+                            </component>
+                        </template>
                     </el-form-item>
                 </el-col>
             </template>
@@ -34,7 +45,7 @@
 <script setup lang="ts" >
 import type { IBaseForm } from "./type";
 import { useVModel } from "@vueuse/core";
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 const form = ref()
 
 const props = withDefaults(defineProps<IBaseForm>(), {
@@ -48,10 +59,6 @@ const emit = defineEmits()
 
 defineExpose({
     form
-})
-
-onMounted(() => {
-    console.log({ form })
 })
 
 const columns = useVModel(props, "columns", emit)
