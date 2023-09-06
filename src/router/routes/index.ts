@@ -53,7 +53,6 @@ export const LoginRoute: RouteRecordRaw = {
     meta: {
         title: "登录",
     },
-    children: childrenRouteModuleList,
 };
 
 
