@@ -61,4 +61,5 @@ export const basicRoutes = [
     RootRoute,
     REDIRECT_ROUTE,
     PAGE_NOT_FOUND_ROUTE,
+    LoginRoute,
 ];
