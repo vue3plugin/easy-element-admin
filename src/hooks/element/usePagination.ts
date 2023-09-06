@@ -10,7 +10,7 @@ export function usePagination() {
     }
 
     function changeCurrent(_current: number) {
-        if (current.value <= 1) {
+        if (_current <= 1) {
             current.value = 1
             return
         }
