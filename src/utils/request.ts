@@ -26,7 +26,7 @@ export const httpStatus: { [index: string]: string } = {
 };
 
 export const { useAxiosRequest, useBlobDownload, server } = createAxios({
-  baseURL: "/",
+  baseURL: import.meta.env.VITE_APP_GETWAY,
   timeout: 0
 });
 
@@ -40,6 +40,7 @@ server.interceptors.request.use(
     if (config.headers) {
       config.headers[AUTHORIZATION] = `Bearer ${token}`
     }
+    return config
   },
   (error) => {
     return Promise.reject(error);
