@@ -1,7 +1,7 @@
 import type { HowAxiosRequestConfig } from "howuse/axios";
-import { useDefAxiosRequest } from '@/utils/request';
+import { useDefAxiosRequest, type DefResult } from '@/utils/request';
 import { usePagination } from "./usePagination";
-import { unref } from "vue";
+import { unref, watch } from "vue";
 
 export function useReqPagination<T, R>(conf: HowAxiosRequestConfig) {
     const { data, execute } = useDefAxiosRequest(conf)
@@ -18,6 +18,13 @@ export function useReqPagination<T, R>(conf: HowAxiosRequestConfig) {
             },
         })
     }
+
+    watch(data,(data: DefResult<any>)=>{
+        const _data = data.data || {}
+        size.value = _data.size
+        current.value = _data.current
+        total.value = _data.total
+    })
 
     function search(conf: HowAxiosRequestConfig) {
         lastConf = conf
