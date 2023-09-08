@@ -41,7 +41,7 @@ export const RootRoute: RouteRecordRaw = {
     meta: {
         title: 'Root',
     },
-    component: LAYOUT(),
+    component: LAYOUT,
     ...rootRouteModuleList,
     children: childrenRouteModuleList,
 }
@@ -49,7 +49,7 @@ export const RootRoute: RouteRecordRaw = {
 export const LoginRoute: RouteRecordRaw = {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/sys/login/IndexView.vue'),
+    component: import('@/views/sys/login/IndexView.vue'),
     meta: {
         title: "登录",
     },
