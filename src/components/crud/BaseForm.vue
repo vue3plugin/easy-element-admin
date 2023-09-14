@@ -46,7 +46,7 @@
 <script setup lang="ts" >
 import type { IBaseForm } from "./type";
 import { useVModel } from "@vueuse/core";
-import { ref } from 'vue';
+import { ref, onUnmounted } from 'vue';
 const form = ref()
 
 const props = withDefaults(defineProps<IBaseForm>(), {
@@ -64,17 +64,15 @@ defineExpose({
 
 const columns = useVModel(props, "columns", emit)
 
-/**
- * @description 收集columns的字段
-*/
-setTimeout(() => {
-    reset()
-}, 200)
-
 // 重置数据
 function reset() {
     for (const column of columns.value) {
         column.value = column.resetVal || ""
     }
 }
+
+// 页面销毁清除数据
+onUnmounted(() => {
+    reset()
+})
 </script>
